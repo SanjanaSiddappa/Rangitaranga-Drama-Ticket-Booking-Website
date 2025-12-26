@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: url('{{ url_for('static', filename='images/background5.jpg') }}') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  p{
+    font-size: 22px;
+  }
+  .btn-check + label {
+    color: white;
+    border: 2px solid #ccc;
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-check:checked + label {
+    background-color: #28a745; /* green */
+    color: white;
+    border-color: #28a745;
+  }
+
+  .btn-check:disabled + label {
+    background-color: #444;
+    color: #aaa;
+    opacity: 0.6;
+    pointer-events: none;
+    border: 2px solid #333;
+  }
+
+  label.btn {
+    font-weight: 500;
+    padding: 10px 0;
+    border-radius: 6px;
+  }
+
+  .btn-success {
+    margin-top: 20px;
+
+</style>
+<div class="container">
+  <h3 class="mb-4" style="color:rgba(85, 224, 127, 0.671); margin-top: 20 px; font-size: 6rex;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;">Select Seats for <span style="background-color: #ffffff; color: #c21919;">"<strong>{{ show.show_name }}</strong>"</span></h3>
+    <p><strong>Venue:</strong> {{ show.venue }} | <strong>Date:</strong> {{ show.date }} | <strong>Time:</strong> {{ show.time }}</p>
+    <p><strong>Price per Seat:</strong> ₹{{ show.price }}</p> 
+
+  <form method="POST" action="/confirm" onsubmit="return validateSeats()">
+    <input type="hidden" name="venue" value="{{ show.venue }}">
+    <input type="hidden" name="date" value="{{ show.date }}">
+    <input type="hidden" name="show_name" value="{{ show.show_name }}">
+    <input type="hidden" name="time" value="{{ show.time }}">
+    <input type="hidden" name="price" value="{{ show.price }}">
+
+    <div class="row row-cols-5 g-3 mb-4">
+      {% for i in range(1, 26) %}
+        {% set seat = "Seat " ~ i %}
+        <div class="col text-center">
+          <input type="checkbox" class="btn-check" id="seat{{ i }}" name="seats" value="{{ seat }}" {% if seat in booked %}disabled{% endif %}>
+          <label class="btn btn-outline-primary w-100"
+                 for="seat{{ i }}"
+                 style="{% if seat in booked %}opacity: 0.5; pointer-events: none;{% endif %}">
+            {{ seat }}
+          </label>
+        </div>
+      {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-success">Confirm Booking</button>
+  </form>
+</div>
+
+<script>
+function validateSeats() {
+  const checkboxes = document.querySelectorAll('input[name="seats"]:checked');
+  if (checkboxes.length === 0) {
+    alert("Kindly select a seat to book.");
+    return false;
+  }
+  return true;
+}
+</script>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: url('{{ url_for('static', filename='images/background2.jpg') }}') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .about-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .about-heading {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #daad1c;
+    text-shadow: 2px 2px 5px black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    animation: fadeIn 2s ease-in-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .about-text {
+    font-size: 1.4rem;
+    max-width: 800px;
+    line-height: 1.8;
+    animation: fadeIn 2s ease-in-out forwards;
+  }
+
+  .btn-back {
+    margin-top: 30px;
+  }
+</style>
+
+<div class="about-container">
+  <div class="about-heading">About Us</div>
+  <div class="about-text">
+    We, <strong>RangiTaranga</strong>, are a passionate drama performing company. We bring stories to life on stage with creativity, dedication, and heart. Our performances span diverse genres, and we aim to entertain, inspire, and connect with audiences through the art of theatre.
+  </div>
+  <div class="btn-back">
+    <a href="/" class="btn btn-outline-light btn-lg" style="background-color: #daad1c; font-size: 20px;"><strong>Back to Home</strong></a>
+  </div>
+</div>
+{% endblock %}
